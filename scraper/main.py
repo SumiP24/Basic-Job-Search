@@ -49,7 +49,7 @@ def run():
         j["country"] = sources.detect_country(j.get("location", ""), j.get("country", ""))
         if not j["country"] or not j.get("title") or not j.get("url"):
             continue
-            if j["source"] in {"Arbeitnow", "The Muse", "Relocate.me", "IamExpat"} \
+        if j["source"] in {"Arbeitnow", "The Muse", "Relocate.me", "IamExpat"} \
                 and not sources._title_match(profile, j["title"]):
             continue
         j["id"] = _job_id(j)
