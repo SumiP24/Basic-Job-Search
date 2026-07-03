@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EU Job Radar</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c1322; --panel:#121c30;
+  --line:#22314f; --ink:#e9eef8; --muted:#8fa1c0; --accent:#ffb454;
+  --high:#3ad29a; --med:#f5c451; --low:#f0876d; --none:#68789a;
+  --radius:10px; --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",sans-serif;
+  background-image:radial-gradient(1200px 500px at 80% -10%, #16223c 0%, transparent 60%);}
+a{color:inherit}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 80px}
+
+header{padding:34px 0 18px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.brand{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(26px,4vw,38px);
+  letter-spacing:.01em;margin:0}
+.brand em{font-style:normal;color:var(--accent)}
+.sub{color:var(--muted);font-family:var(--mono);font-size:12.5px;margin-top:6px;
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.dots{display:inline-flex;gap:5px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--none)}
+.dot.ok{background:var(--high)} .dot.fail{background:var(--low)}
+.topbtns{float:right;margin-top:6px}
+
+button{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);
+  border-radius:8px;padding:7px 14px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);color:#221503;border-color:var(--accent);font-weight:600}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0 20px}
+.toolbar input[type=search]{flex:1;min-width:180px;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink)}
+select{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;color:var(--ink);font:inherit}
+.chip{padding:6px 12px;border-radius:999px}
+.chip[aria-pressed=true]{background:var(--accent);color:#221503;border-color:var(--accent);font-weight:600}
+label.tog{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:14px;cursor:pointer}
+
+.job{display:grid;grid-template-columns:1fr auto auto;gap:8px 22px;align-items:start;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 18px;margin-bottom:10px}
+.job:hover{border-color:#35507e}
+.jtitle{font-weight:600;font-size:16.5px;text-decoration:none}
+.jtitle:hover{color:var(--accent)}
+.jmeta{color:var(--muted);font-size:13px;margin-top:3px}
+.jmeta b{color:var(--ink);font-weight:500}
+.new{font-family:var(--mono);font-size:10.5px;color:#221503;background:var(--accent);
+  border-radius:4px;padding:1px 6px;margin-left:8px;vertical-align:2px}
+details{margin-top:8px;color:var(--muted);font-size:13.5px}
+summary{cursor:pointer;color:var(--muted);width:max-content}
+summary:hover{color:var(--ink)}
+.reasons li{margin:2px 0}
+
+.visa{justify-self:end;text-align:right;min-width:118px}
+.badge{display:inline-flex;gap:7px;align-items:center;font-family:var(--mono);font-size:12px;
+  border:1px solid var(--line);border-radius:999px;padding:4px 11px;white-space:nowrap}
+.badge i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.b-High i{background:var(--high)} .b-High{color:var(--high);border-color:color-mix(in srgb,var(--high) 40%,var(--line))}
+.b-Medium i{background:var(--med)} .b-Medium{color:var(--med)}
+.b-Low i{background:var(--low)} .b-Low{color:var(--low)}
+.b-Unlikely i{background:var(--low)} .b-Unlikely{color:var(--low)}
+.b-Unknown i{background:var(--none)} .b-Unknown{color:var(--none)}
+
+.score{justify-self:end;text-align:right}
+.snum{font-family:var(--mono);font-weight:600;font-size:22px}
+.sbar{width:86px;height:3px;background:var(--line);border-radius:2px;margin:6px 0 4px;margin-left:auto}
+.sbar i{display:block;height:100%;background:var(--accent);border-radius:2px}
+.swhy{color:var(--muted);font-size:12px;max-width:180px}
+.acts{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+.acts a{ text-decoration:none;background:var(--panel);border:1px solid var(--line);
+  border-radius:8px;padding:6px 13px;font-size:14px}
+.acts a:hover{border-color:var(--accent)}
+
+.state{padding:44px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius)}
+
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);
+  border-radius:14px;padding:22px;max-width:640px;width:92vw}
+dialog::backdrop{background:rgba(5,9,18,.7)}
+dialog h2{font-family:"Bricolage Grotesque";margin:0 0 4px;font-size:20px}
+dialog p.hint{color:var(--muted);font-size:13px;margin:4px 0 14px}
+dialog input,dialog textarea{width:100%;background:var(--bg);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);padding:9px 11px;font:inherit;margin:4px 0 12px}
+dialog textarea{min-height:180px;font-family:var(--mono);font-size:13px}
+.mrow{display:flex;gap:8px;justify-content:flex-end}
+#tailorOut{white-space:pre-wrap;font-family:var(--mono);font-size:13px;background:var(--bg);
+  border:1px solid var(--line);border-radius:8px;padding:14px;max-height:52vh;overflow:auto}
+.spin{color:var(--accent);font-family:var(--mono)}
+
+@media (max-width:720px){
+  .job{grid-template-columns:1fr}
+  .visa,.score{justify-self:start;text-align:left}
+  .sbar{margin-left:0}
+  .acts{justify-content:flex-start}
+  .topbtns{float:none;margin:10px 0 0}
+}
+@media (prefers-reduced-motion:no-preference){
+  .job{transition:border-color .15s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="topbtns"><button id="settingsBtn">Settings</button></div>
+  <h1 class="brand">EU JOB <em>/</em> RADAR</h1>
+  <div class="sub" id="metaLine">loading…</div>
+</header>
+
+<div class="toolbar" id="toolbar">
+  <input type="search" id="q" placeholder="Search title, company, location…" aria-label="Search jobs">
+  <span id="ccChips"></span>
+  <select id="visaSel" aria-label="Visa filter">
+    <option value="">Visa: any</option>
+    <option value="High">Visa: High only</option>
+    <option value="MedUp">Visa: Medium +</option>
+  </select>
+  <select id="sortSel" aria-label="Sort">
+    <option value="rel">Sort: relevance</option>
+    <option value="new">Sort: newest</option>
+    <option value="visa">Sort: visa</option>
+  </select>
+  <label class="tog"><input type="checkbox" id="newOnly"> New today</label>
+</div>
+
+<div id="list"></div>
+
+<dialog id="settingsDlg">
+  <h2>Settings</h2>
+  <p class="hint">Stored only in this browser (localStorage). Needed for the “Tailor CV” button; the daily pipeline uses the GitHub secrets instead.</p>
+  <label>Anthropic API key</label>
+  <input type="password" id="apiKey" placeholder="sk-ant-…" autocomplete="off">
+  <label>Your CV (plain text)</label>
+  <textarea id="cvText" placeholder="Paste your full CV here…"></textarea>
+  <div class="mrow"><button id="settingsClose">Cancel</button><button class="primary" id="settingsSave">Save</button></div>
+</dialog>
+
+<dialog id="tailorDlg">
+  <h2 id="tailorTitle">Tailor CV</h2>
+  <div id="tailorOut">…</div>
+  <div class="mrow" style="margin-top:12px">
+    <button id="copyBtn">Copy</button><button id="tailorClose">Close</button>
+  </div>
+</dialog>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const store={get k(){return localStorage.getItem('jr_key')||''},set k(v){localStorage.setItem('jr_key',v)},
+             get cv(){return localStorage.getItem('jr_cv')||''},set cv(v){localStorage.setItem('jr_cv',v)}};
+let DATA=null, F={q:'',cc:'ALL',visa:'',sort:'rel',newOnly:false};
+const VRANK={High:4,Medium:3,Low:2,Unknown:1,Unlikely:0};
+const esc=s=>(s??'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function load(){
+  try{
+    const r=await fetch('jobs.json?t='+Date.now());
+    if(!r.ok) throw 0;
+    DATA=await r.json();
+  }catch(e){
+    $('#metaLine').textContent='no data yet';
+    $('#list').innerHTML='<div class="state">No jobs.json found. Run the “Daily job scrape” workflow once in the repo’s Actions tab, then refresh.</div>';
+    return;
+  }
+  renderMeta(); renderChips(); render();
+}
+
+function renderMeta(){
+  const m=DATA.meta, dots=Object.entries(m.sources||{}).map(([n,s])=>
+    `<span class="dot ${s.ok?'ok':'fail'}" title="${esc(n)}: ${s.ok?s.count+' jobs':'failed — '+esc(s.error||'')}"></span>`).join('');
+  $('#metaLine').innerHTML=
+    `<span>updated ${esc((m.updated_at||'').replace('T',' ').slice(0,16))} UTC</span>`+
+    `<span>${m.total} jobs</span><span class="dots" title="source health">${dots}</span>`+
+    (m.cv_hash?'' :'<span style="color:var(--low)">CV_TEXT secret not set — relevance scores are 0</span>');
+}
+
+function renderChips(){
+  const ccs=['ALL','NL','DE','DK','OTHER'];
+  $('#ccChips').innerHTML=ccs.map(c=>
+    `<button class="chip" data-cc="${c}" aria-pressed="${F.cc===c}">${c==='ALL'?'All':c==='OTHER'?'Other EU':c}</button>`).join(' ');
+  document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{F.cc=b.dataset.cc;renderChips();render();});
+}
+
+function filtered(){
+  const today=(DATA.meta.updated_at||'').slice(0,10), q=F.q.toLowerCase();
+  let js=DATA.jobs.filter(j=>{
+    if(q && !(j.title+' '+j.company+' '+j.location).toLowerCase().includes(q)) return false;
+    if(F.cc==='OTHER'){ if(['NL','DE','DK'].includes(j.country)) return false; }
+    else if(F.cc!=='ALL' && j.country!==F.cc) return false;
+    if(F.visa==='High' && j.visa.level!=='High') return false;
+    if(F.visa==='MedUp' && !['High','Medium'].includes(j.visa.level)) return false;
+    if(F.newOnly && j.first_seen!==today) return false;
+    return true;
+  });
+  if(F.sort==='new') js.sort((a,b)=>b.first_seen.localeCompare(a.first_seen)||b.relevance.score-a.relevance.score);
+  else if(F.sort==='visa') js.sort((a,b)=>VRANK[b.visa.level]-VRANK[a.visa.level]||b.relevance.score-a.relevance.score);
+  else js.sort((a,b)=>b.relevance.score-a.relevance.score||b.first_seen.localeCompare(a.first_seen));
+  return js;
+}
+
+function render(){
+  const today=(DATA.meta.updated_at||'').slice(0,10), js=filtered();
+  if(!js.length){$('#list').innerHTML='<div class="state">Nothing matches these filters.</div>';return;}
+  $('#list').innerHTML=js.map(j=>`
+  <article class="job" data-id="${j.id}">
+    <div>
+      <a class="jtitle" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">${esc(j.title)}</a>
+      ${j.first_seen===today?'<span class="new">NEW</span>':''}
+      <div class="jmeta"><b>${esc(j.company)}</b> · ${esc(j.location||j.country)} · ${esc(j.source)}${j.posted?' · posted '+esc(j.posted):''}</div>
+      <details><summary>why this visa rating${j.desc?' · description':''}</summary>
+        <ul class="reasons">${j.visa.reasons.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+        ${j.desc?`<p>${esc(j.desc)}</p>`:''}
+      </details>
+    </div>
+    <div class="visa"><span class="badge b-${j.visa.level}"><i></i>Visa ${j.visa.level}</span></div>
+    <div class="score"><div class="snum">${j.relevance.score}</div>
+      <div class="sbar"><i style="width:${j.relevance.score}%"></i></div>
+      <div class="swhy">${esc(j.relevance.why||'')}</div></div>
+    <div class="acts">
+      <a href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">Open ↗</a>
+      <button data-tailor="${j.id}">Tailor CV</button>
+    </div>
+  </article>`).join('');
+  document.querySelectorAll('[data-tailor]').forEach(b=>b.onclick=()=>tailor(b.dataset.tailor));
+}
+
+['input','change'].forEach(ev=>{
+  $('#q').addEventListener(ev,e=>{F.q=e.target.value;render();});
+});
+$('#visaSel').onchange=e=>{F.visa=e.target.value;render();};
+$('#sortSel').onchange=e=>{F.sort=e.target.value;render();};
+$('#newOnly').onchange=e=>{F.newOnly=e.target.checked;render();};
+
+$('#settingsBtn').onclick=()=>{$('#apiKey').value=store.k;$('#cvText').value=store.cv;$('#settingsDlg').showModal();};
+$('#settingsClose').onclick=()=>$('#settingsDlg').close();
+$('#settingsSave').onclick=()=>{store.k=$('#apiKey').value.trim();store.cv=$('#cvText').value;$('#settingsDlg').close();};
+
+async function tailor(id){
+  const j=DATA.jobs.find(x=>x.id===id);
+  $('#tailorTitle').textContent='Tailor CV — '+j.title;
+  const out=$('#tailorOut'); $('#tailorDlg').showModal();
+  if(!store.k||!store.cv){out.textContent='Add your Anthropic API key and CV in Settings first.';return;}
+  out.innerHTML='<span class="spin">Tailoring…</span>';
+  const prompt=`Tailor my CV for this job. Be truthful — reword and reprioritise my real experience, never invent anything.
+
+JOB: ${j.title} at ${j.company} (${j.location}, ${j.country})
+DESCRIPTION: ${j.desc||'(none provided)'}
+LINK: ${j.url}
+
+MY CV:
+${store.cv.slice(0,9000)}
+
+Return plain text with exactly these sections:
+1. TARGETED SUMMARY — 3 lines, aimed at this role
+2. SKILLS LINE — my skills reordered for this job description
+3. REWRITTEN BULLETS — my 5 strongest experience bullets, rephrased with this job's keywords
+4. ATS KEYWORDS TO ADD — up to 6 terms from the description I genuinely match
+5. GAPS TO ADDRESS — up to 3 honest gaps vs. the requirements`;
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'content-type':'application/json','x-api-key':store.k,
+        'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1400,
+        messages:[{role:'user',content:prompt}]})});
+    const d=await r.json();
+    if(!r.ok) throw new Error(d.error?.message||r.status);
+    out.textContent=(d.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n');
+  }catch(e){out.textContent='Request failed: '+e.message;}
+}
+$('#tailorClose').onclick=()=>$('#tailorDlg').close();
+$('#copyBtn').onclick=()=>navigator.clipboard.writeText($('#tailorOut').textContent);
+
+load();
+</script>
+</body>
+</html>

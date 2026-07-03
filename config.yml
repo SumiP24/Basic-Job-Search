@@ -1,0 +1,17 @@
+# Used only when no CV / API key is configured; otherwise queries come from your CV.
+fallback_titles:
+  - software engineer
+  - data engineer
+  - backend developer
+
+# Adzuna has no Denmark coverage; Jooble covers it below.
+adzuna_countries: [nl, de, at, be, se, fr]
+
+jooble_locations: [Denmark, Netherlands, Germany]
+
+muse_locations:
+  - "Amsterdam, Netherlands"
+  - "Berlin, Germany"
+  - "Munich, Germany"
+  - "Hamburg, Germany"
+  - "Copenhagen, Denmark"

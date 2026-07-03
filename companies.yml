@@ -1,0 +1,23 @@
+# Direct company career boards pulled via public ATS JSON endpoints.
+# ats: greenhouse | lever | ashby.  slug = board identifier in the careers-page URL.
+# Wrong/renamed slugs are skipped automatically — extend this list freely.
+- {name: Adyen,          ats: greenhouse, slug: adyen,              country: NL}
+- {name: Mollie,         ats: greenhouse, slug: mollie,             country: NL}
+- {name: Picnic,         ats: greenhouse, slug: picnictechnologies, country: NL}
+- {name: Backbase,       ats: greenhouse, slug: backbase,           country: NL}
+- {name: IMC Trading,    ats: greenhouse, slug: imc,                country: NL}
+- {name: Flow Traders,   ats: greenhouse, slug: flowtraders,        country: NL}
+- {name: Optiver,        ats: greenhouse, slug: optiver,            country: NL}
+- {name: Databricks,     ats: greenhouse, slug: databricks,         country: NL}
+- {name: Elastic,        ats: greenhouse, slug: elastic,            country: NL}
+- {name: N26,            ats: greenhouse, slug: n26,                country: DE}
+- {name: HelloFresh,     ats: greenhouse, slug: hellofresh,         country: DE}
+- {name: Delivery Hero,  ats: greenhouse, slug: deliveryhero,       country: DE}
+- {name: GetYourGuide,   ats: greenhouse, slug: getyourguide,       country: DE}
+- {name: Personio,       ats: greenhouse, slug: personio,           country: DE}
+- {name: Celonis,        ats: greenhouse, slug: celonis,            country: DE}
+- {name: Trade Republic, ats: greenhouse, slug: traderepublic,      country: DE}
+- {name: Pleo,           ats: greenhouse, slug: pleo,               country: DK}
+- {name: Trustpilot,     ats: greenhouse, slug: trustpilot,         country: DK}
+- {name: Templafy,       ats: greenhouse, slug: templafy,           country: DK}
+- {name: Lunar,          ats: lever,      slug: lunar,              country: DK}
