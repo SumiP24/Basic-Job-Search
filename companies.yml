@@ -21,3 +21,12 @@
 - {name: Trustpilot,     ats: greenhouse, slug: trustpilot,         country: DK}
 - {name: Templafy,       ats: greenhouse, slug: templafy,           country: DK}
 - {name: Lunar,          ats: lever,      slug: lunar,              country: DK}
+- {name: HelloFresh,     ats: greenhouse, slug: hellofresh,         country: DE}
+- {name: Delivery Hero,  ats: greenhouse, slug: deliveryhero,       country: DE}
+- {name: Picnic,         ats: greenhouse, slug: picnictechnologies, country: NL}
+- {name: Flexport,       ats: greenhouse, slug: flexport,           country: NL}
+- {name: Forto,          ats: greenhouse, slug: forto,              country: DE}
+- {name: sennder,        ats: greenhouse, slug: sennder,            country: DE}
+- {name: Too Good To Go, ats: greenhouse, slug: toogoodtogo,        country: DK}
+- {name: Wolt,           ats: lever,      slug: wolt,               country: DK}
+- {name: Pleo,           ats: greenhouse, slug: pleo,               country: DK}
